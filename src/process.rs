@@ -22,8 +22,12 @@ impl Process {
     pub fn get_name(&self) -> &str {
         &self.name
     }
-    pub fn add_child(&mut self, child: &Process) {
-        self.children.push(child.clone());
+    pub fn add_child(&mut self, child: Process) {
+        if child.has_children(){
+            println!("Yey");
+        }
+        self.children.push(child);
+
     }
     pub fn set_name(&mut self, name: String) {
         self.name = name;
@@ -31,9 +35,12 @@ impl Process {
     pub fn get_children(&self) -> &Vec<Process> {
         &self.children
     }
-    pub fn traverse(&self) -> Vec<Process> {
+    pub fn traverse(&self) -> Vec<&Process> {
         let mut result = Vec::new();
-        self.traverse_helper(&mut result);
+        result.push(self);
+        for child in &self.children {
+            result.extend(child.traverse());
+        }
         result
     }
 

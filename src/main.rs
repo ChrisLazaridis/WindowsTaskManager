@@ -44,68 +44,85 @@ fn get_all_processes() -> Result<Process> {
                     }
                 }
             }
+        } else {
+            return Err(Error::new(ErrorKind::Other, "Failed to retrieve first process").into());
         }
 
         CloseHandle(snapshot).ok();
     }
 
-    let mut pending_pairs: Vec<(i32, i32, Process)> = Vec::new();
+    println!("All processes: {}", all_processes.len());
 
+    let mut pending_pairs: Vec<(i32, i32, Process)> = Vec::new();
     for (&pid, &(parent_pid, ref process)) in &all_processes {
         pending_pairs.push((parent_pid, pid, process.clone()));
     }
 
     let mut processed: HashMap<i32, Process> = HashMap::new();
 
+    let mut progress_made = 0;
     while !pending_pairs.is_empty() {
         let mut has_progress = false;
-
         pending_pairs.retain(|(parent_pid, pid, process)| {
             if processed.contains_key(pid) {
-                return false; // Already processed, skip it
+                println!("Process {} already processed.", pid);
+                return false;
             }
 
             if *parent_pid == 0 {
-                root_process.add_child(process);
+                let p = process.clone();
+                root_process.add_child(p);
                 processed.insert(*pid, process.clone());
+                println!("Added process {} to root.", pid);
                 has_progress = true;
-                return false; // Processed as a direct child of root
+                return false;
             }
 
             if let Some(parent_process) = processed.get_mut(parent_pid) {
-                parent_process.add_child(process);
+                let p = process.clone();
+                parent_process.add_child(p);
                 processed.insert(*pid, process.clone());
+                println!("Added process {} to parent {}.", pid, parent_pid);
                 has_progress = true;
-                return false; // Processed successfully
+                return false;
             }
 
-            true // Keep in the list for next round
+            true
         });
 
         if !has_progress {
-            // No progress was made in this iteration, avoiding infinite loop
+            println!("No progress made, breaking out of the loop.");
             break;
         }
     }
 
-    // Attach unprocessed processes directly to root (could be orphans or roots themselves)
+    // Additional handling for any remaining unprocessed pairs
     for (parent_pid, pid, process) in pending_pairs {
         if processed.contains_key(&pid) {
+            println!("Skipping already processed process {}", pid);
             continue;
         }
-
+        let p = process.clone();
         if parent_pid == 0 {
-            root_process.add_child(&process);
+            root_process.add_child(process);
+            processed.insert(pid, p);
         } else {
             if let Some(parent_process) = processed.get_mut(&parent_pid) {
-                parent_process.add_child(&process);
+                parent_process.add_child(process);
+                processed.insert(pid, p);
+                println!("Added process {} to parent {}.", pid, parent_pid);
             } else {
-                root_process.add_child(&process); // Attach to root if parent not found
+                println!("Orphan process detected: PID {} with Parent PID {}. Attaching to root.", pid, parent_pid);
+                root_process.add_child(process);
+                processed.insert(pid, p);
             }
         }
-
-        processed.insert(pid, process);
     }
+    println!("Total processes in tree: {}", processed.len());
+    println!("Direct children of root: {}", root_process.get_children().len());
+
+    let processes = root_process.traverse();
+    println!("Total processes after traversal: {}", processes.len());
 
     Ok(root_process)
 }
@@ -114,11 +131,13 @@ fn main() {
     match get_all_processes() {
         Ok(root_process) => {
             let processes = root_process.traverse();
+
             for process in processes {
-                println!("PID: {}, Name: {}", process.get_pid(), process.get_name());
-                if process.get_pid() == 4 && process.has_children() {
-                    for child in process.get_children() {
-                        println!("  Child PID: {}, Name: {}", child.get_pid(), child.get_name());
+                if process.get_pid() == 4 {
+                    if process.has_children() {
+                        println!("PID: {}, Name: {}", process.get_pid(), process.get_name());
+                    }else{
+                        println!("FALSE")
                     }
                 }
             }
@@ -126,5 +145,3 @@ fn main() {
         Err(e) => eprintln!("Error: {:?}", e),
     }
 }
-
-
