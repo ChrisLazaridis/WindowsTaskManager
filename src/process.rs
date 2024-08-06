@@ -2,7 +2,7 @@
 pub struct Process {
     pid: i32,
     name: String,
-    children: Vec<Process>,
+    children: Vec<i32>,
 }
 
 impl Process {
@@ -22,20 +22,17 @@ impl Process {
     pub fn get_name(&self) -> &str {
         &self.name
     }
-    pub fn add_child(&mut self, child: Process) {
-        if child.has_children(){
-            println!("Yey");
-        }
+    pub fn add_child(&mut self, child: i32) {
         self.children.push(child);
 
     }
     pub fn set_name(&mut self, name: String) {
         self.name = name;
     }
-    pub fn get_children(&self) -> &Vec<Process> {
+    pub fn get_children(&self) -> &Vec<i32> {
         &self.children
     }
-    pub fn traverse(&self) -> Vec<&Process> {
+    pub fn traverse(&self) -> Vec<&i32> {
         let mut result = Vec::new();
         result.push(self);
         for child in &self.children {
