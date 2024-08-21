@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinTaskManager (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinTaskManager (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
