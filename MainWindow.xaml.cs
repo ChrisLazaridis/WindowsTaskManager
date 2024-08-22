@@ -20,5 +20,20 @@ namespace WinTaskManager
         {
             InitializeComponent();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            string processTreeJson = ProcessTreeInterop.GetProcessTree();
+            if (processTreeJson != null)
+            {
+                ProcessTree processTree = ProcessTree.Deserialize(processTreeJson);
+                MessageBox.Show(processTree.Root.Name);
+            }
+            else
+            {
+                MessageBox.Show("Failed to retrieve process tree.");
+            }
+        }
     }
+    
 }

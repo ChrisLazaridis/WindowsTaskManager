@@ -179,14 +179,13 @@ pub extern "C" fn get_process_tree() -> *mut c_char {
     match get_all_processes() {
         Ok(processes) => {
             let process_tree = create_tree(processes);
-            let filename = String::from("process_tree.json");
-            match process_tree.serialize(&filename) {
-                Ok(_) => {
-                    let result = CString::new(filename).unwrap();
-                    result.into_raw()
-                },
-                Err(_) => CString::new("").unwrap().into_raw(),
-            }
+            let json_string = match serde_json::to_string(&process_tree) {
+                Ok(json) => json,
+                Err(_) => String::new(),
+            };
+
+            let result = CString::new(json_string).unwrap();
+            result.into_raw()
         }
         Err(_) => CString::new("").unwrap().into_raw(),
     }

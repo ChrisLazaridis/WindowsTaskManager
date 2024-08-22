@@ -7,6 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="367*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="0,0,-65,0">
+            <TextBox x:Name="textBox" Margin="10" TextWrapping="Wrap" Text="TextBox" Width="120"/>
+            <Button x:Name="button" Content="Button" Margin="10" Click="button_Click"/>
+        </StackPanel>
+
 
     </Grid>
 </Window>
