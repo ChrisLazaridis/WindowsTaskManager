@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "VgnKqJM0da0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\WinTaskManager.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\claza\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\claza\\.nuget\\packages\\mahapps.metro\\2.4.10\\mahapps.metro.2.4.10.nupkg.sha512",
+    "C:\\Users\\claza\\.nuget\\packages\\materialdesigncolors\\3.1.0\\materialdesigncolors.3.1.0.nupkg.sha512",
+    "C:\\Users\\claza\\.nuget\\packages\\materialdesignthemes\\5.1.0\\materialdesignthemes.5.1.0.nupkg.sha512",
+    "C:\\Users\\claza\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+    "C:\\Users\\claza\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}

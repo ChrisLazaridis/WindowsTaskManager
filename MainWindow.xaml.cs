@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,18 +22,40 @@ namespace WinTaskManager
             InitializeComponent();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void LoadProcessTree_Click(object sender, RoutedEventArgs e)
         {
+            // Call the Rust interop function to get the process tree
             string processTreeJson = ProcessTreeInterop.GetProcessTree();
-            if (processTreeJson != null)
-            {
-                ProcessTree processTree = ProcessTree.Deserialize(processTreeJson);
-                MessageBox.Show(processTree.Root.Name);
-            }
-            else
+
+            if (string.IsNullOrEmpty(processTreeJson))
             {
                 MessageBox.Show("Failed to retrieve process tree.");
+                return;
             }
+
+            // Deserialize the JSON into a ProcessTree object
+            var processTree = ProcessTree.Deserialize(processTreeJson);
+
+            // Clear existing items in the TreeView
+            ProcessTreeView.Items.Clear();
+
+            // Populate the TreeView
+            var rootNode = CreateTreeViewItem(processTree);
+            ProcessTreeView.Items.Add(rootNode);
+        }
+        private TreeViewItem CreateTreeViewItem(ProcessTree processTree)
+        {
+            var item = new TreeViewItem
+            {
+                Header = $"{processTree.Root.Pid} - {processTree.Root.Name}"
+            };
+
+            foreach (var child in processTree.Children.Values)
+            {
+                item.Items.Add(CreateTreeViewItem(child));
+            }
+
+            return item;
         }
     }
     
