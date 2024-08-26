@@ -36,12 +36,6 @@ impl ProcessTree {
         }
     }
 
-    pub fn serialize(&self, filename: &str) -> Result<(), std::io::Error> {
-        let file = std::fs::File::create(filename)?;
-        serde_json::to_writer(file, self)?;
-        Ok(())
-    }
-
     pub fn exists(&self, pid: i32) -> bool {
         if self.root.get_pid() == pid {
             return true;

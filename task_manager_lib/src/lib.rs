@@ -8,6 +8,15 @@ use windows::{
     Win32::System::Diagnostics::ToolHelp::*,
     Win32::Foundation::*,
 };
+use sysinfo::{Pid, System};
+use std::ffi::OsString;
+use std::os::windows::ffi::OsStringExt;
+use std::path::PathBuf;
+use winapi::um::psapi::GetProcessImageFileNameW;
+use winapi::um::processthreadsapi::OpenProcess;
+use winapi::um::handleapi::CloseHandle;
+use winapi::um::winnt::{PROCESS_QUERY_INFORMATION, PROCESS_VM_READ};
+
 
 mod process;
 mod process_tree;
@@ -20,7 +29,7 @@ fn get_all_processes() -> Result<Vec<Process>> {
     let mut child_parent_pairs: HashMap<i32, Vec<i32>> = HashMap::new();
 
     unsafe {
-        let snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0).map_err(|e| {
+        let snapshot:HANDLE = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0).map_err(|e| {
             Error::new(ErrorKind::Other, format!("Failed to create snapshot: {:?}", e))
         })?;
 
@@ -57,7 +66,7 @@ fn get_all_processes() -> Result<Vec<Process>> {
             return Err(Error::new(ErrorKind::Other, "Failed to retrieve first process").into());
         }
 
-        CloseHandle(snapshot).ok();
+        windows::Win32::Foundation::CloseHandle(snapshot).ok();
     }
 
     // Adding children to their respective parent processes
@@ -164,10 +173,66 @@ fn find_process_by_pid(pid: i32) -> Result<Process> {
             return Err(Error::new(ErrorKind::Other, "Failed to retrieve first process").into());
         }
 
-        CloseHandle(snapshot).ok();
+        windows::Win32::Foundation::CloseHandle(snapshot).ok();
     }
 
     Ok(p)
+}
+#[no_mangle]
+pub extern "C" fn get_process_info(pid: u32) -> *mut c_char {
+    let mut system = System::new_all();
+    system.refresh_all();
+
+    // Get basic process information using sysinfo
+    let process = match system.process(Pid::from_u32(pid)) {
+        Some(p) => p,
+        None => return CString::new("Process not found").unwrap().into_raw(),
+    };
+
+    let mut info = String::new();
+
+    // Convert OsStr to String using to_string_lossy()
+    info.push_str(&format!("Name: {}\n", process.name().to_string_lossy()));
+
+    // Convert OsString to String for the command
+    let command: Vec<String> = process.cmd()
+                                      .iter()
+                                      .map(|arg| arg.to_string_lossy().into_owned())
+                                      .collect();
+    info.push_str(&format!("Command: {}\n", command.join(" ")));
+
+    // Handle Option<&Path> for exe() and cwd()
+    let exe_path = process.exe()
+                          .map(|path| path.display().to_string())
+                          .unwrap_or_else(|| "Unknown".to_string());
+    info.push_str(&format!("Executable Path: {}\n", exe_path));
+
+    let cwd_path = process.cwd()
+                          .map(|path| path.display().to_string())
+                          .unwrap_or_else(|| "Unknown".to_string());
+    info.push_str(&format!("Current Working Directory: {}\n", cwd_path));
+
+    info.push_str(&format!("Memory Usage: {} KB\n", process.memory()));
+    info.push_str(&format!("CPU Usage: {}%\n", process.cpu_usage()));
+    info.push_str(&format!("Status: {:?}\n", process.status()));
+
+    // Extended process information using winapi
+    unsafe {
+        let handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, 0, pid);
+        if !handle.is_null() {
+            let mut image_file_name = [0u16; 1024];
+            let len = GetProcessImageFileNameW(handle, image_file_name.as_mut_ptr(), image_file_name.len() as u32);
+            if len > 0 {
+                let os_str: OsString = OsStringExt::from_wide(&image_file_name[..len as usize]);
+                let path: PathBuf = PathBuf::from(os_str);
+                info.push_str(&format!("Full Image Path: {}\n", path.display()));
+            }
+            CloseHandle(handle);
+        }
+    }
+
+    let result = CString::new(info).unwrap();
+    result.into_raw()
 }
 
 pub fn add(left: usize, right: usize) -> usize {

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TreeView Name="ProcessTreeView" HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="760" Margin="10,10,0,0"/>
+        <TreeView Name="ProcessTreeView" HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="760" Margin="10,10,0,0" SelectedItemChanged="ProcessTreeView_SelectedItemChanged"/>
         <Button Content="Load Process Tree" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Margin="10,0,0,10" Click="LoadProcessTree_Click"/>
         
     </Grid>

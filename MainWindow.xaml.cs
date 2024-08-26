@@ -1,20 +1,10 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WinTaskManager
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -43,11 +33,13 @@ namespace WinTaskManager
             var rootNode = CreateTreeViewItem(processTree);
             ProcessTreeView.Items.Add(rootNode);
         }
+
         private TreeViewItem CreateTreeViewItem(ProcessTree processTree)
         {
             var item = new TreeViewItem
             {
-                Header = $"{processTree.Root.Pid} - {processTree.Root.Name}"
+                Header = $"{processTree.Root.Pid} - {processTree.Root.Name}",
+                Tag = processTree.Root.Pid // Store the PID in the Tag property
             };
 
             foreach (var child in processTree.Children.Values)
@@ -57,6 +49,28 @@ namespace WinTaskManager
 
             return item;
         }
+
+        private void ProcessTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (e.NewValue is TreeViewItem selectedItem)
+            {
+                // Extract the PID from the Tag property
+                if (selectedItem.Tag is int pid)
+                {
+                    // Get process information from Rust library
+                    string processInfo = ProcessTreeInterop.GetProcessInfo((uint)pid);
+
+                    if (!string.IsNullOrEmpty(processInfo))
+                    {
+                        // Show process information in a MessageBox
+                        MessageBox.Show(processInfo, $"Process Information (PID: {pid})");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to retrieve process information.");
+                    }
+                }
+            }
+        }
     }
-    
 }

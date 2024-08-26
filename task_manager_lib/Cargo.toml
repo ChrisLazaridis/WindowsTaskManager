@@ -9,8 +9,9 @@ crate-type = ["cdylib"]
 
 [dependencies]
 windows = { version = "0.58", features = ["Win32_System_Diagnostics_ToolHelp", "Win32_Foundation", "Win32_System_Threading"] }
-winapi = { version = "0.3.9", features = ["minwinbase"] }
+winapi = { version = "0.3.9", features = ["minwinbase","psapi", "processthreadsapi", "handleapi", "winnt"] }
 #serialization
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.124"
 bincode = "2.0.0-rc.3"
+sysinfo = "0.31.3"
