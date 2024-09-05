@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VgnKqJM0da0=",
+  "dgSpecHash": "SScMMrqdgOE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\WinTaskManager.csproj",
+  "projectFilePath": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\WinTaskManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\claza\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
     "C:\\Users\\claza\\.nuget\\packages\\mahapps.metro\\2.4.10\\mahapps.metro.2.4.10.nupkg.sha512",

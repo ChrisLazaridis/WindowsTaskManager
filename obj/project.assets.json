@@ -292,11 +292,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\WinTaskManager.csproj",
+      "projectUniqueName": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\WinTaskManager.csproj",
       "projectName": "WinTaskManager",
-      "projectPath": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\WinTaskManager.csproj",
+      "projectPath": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\WinTaskManager.csproj",
       "packagesPath": "C:\\Users\\claza\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\obj\\",
+      "outputPath": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -311,6 +311,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

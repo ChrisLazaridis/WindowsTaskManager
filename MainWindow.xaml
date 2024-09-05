@@ -8,8 +8,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TreeView Name="ProcessTreeView" HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="760" Margin="10,10,0,0" SelectedItemChanged="ProcessTreeView_SelectedItemChanged"/>
-        <Button Content="Load Process Tree" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="150" Margin="10,0,0,10" Click="LoadProcessTree_Click"/>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="39*"/>
+        </Grid.ColumnDefinitions>
+        <TreeView Name="ProcessTreeView" HorizontalAlignment="Left" Height="350" VerticalAlignment="Top" Width="326" Margin="10,10,0,0" SelectedItemChanged="ProcessTreeView_SelectedItemChanged"/>
+        <Button Content="Load Process Tree" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Click="LoadProcessTree_Click"/>
+        <RichTextBox x:Name="richTextBox" Grid.Column="1" Margin="312,0,0,74" Width="312">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Button x:Name="button" Content="Kill Process" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="527,0,0,14" Click="button_Click" Grid.Column="1" d:LayoutOverrides="VerticalAlignment"/>
     </Grid>
 </Window>

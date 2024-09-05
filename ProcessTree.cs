@@ -47,6 +47,20 @@ public class ProcessTree
     {
         return JsonSerializer.Deserialize<ProcessTree>(json);
     }
+    public ProcessTree Find(int pid)
+    {
+        if (Root.Pid == pid)
+            return this;
+
+        foreach (var subtree in Children.Values)
+        {
+            var result = subtree.Find(pid);
+            if (result != null)
+                return result;
+        }
+
+        return null;
+    }
 
     public string Serialize()
     {

@@ -7,6 +7,7 @@ namespace WinTaskManager
 {
     public partial class MainWindow : Window
     {
+        private int _selected_pid;
         public MainWindow()
         {
             InitializeComponent();
@@ -57,20 +58,63 @@ namespace WinTaskManager
                 // Extract the PID from the Tag property
                 if (selectedItem.Tag is int pid)
                 {
-                    // Get process information from Rust library
-                    string processInfo = ProcessTreeInterop.GetProcessInfo((uint)pid);
+                    //// Get process information from Rust library
+                    //string processInfo = ProcessTreeInterop.GetProcessInfo((uint)pid);
 
-                    if (!string.IsNullOrEmpty(processInfo))
-                    {
-                        // Show process information in a MessageBox
-                        MessageBox.Show(processInfo, $"Process Information (PID: {pid})");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Failed to retrieve process information.");
-                    }
+                    //if (!string.IsNullOrEmpty(processInfo))
+                    //{
+                    //    // Show process information in a MessageBox
+                    //    MessageBox.Show(processInfo, $"Process Information (PID: {pid})");
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Failed to retrieve process information.");
+                    //}
+                    _selected_pid = pid;
+                    showProcessInfo(pid);
+
                 }
             }
+        }
+
+        private void showProcessInfo(int pid)
+        {
+            string processInfo = ProcessTreeInterop.GetProcessInfo((uint)pid);
+            if (string.IsNullOrEmpty(processInfo)) {
+                MessageBox.Show("Failed to retrieve process information.");
+                return;
+            }
+            // display the information in the rich text box
+            richTextBox.Document.Blocks.Clear();
+            richTextBox.AppendText(processInfo);
+
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selected_pid == 0)
+            {
+                MessageBox.Show("Please select a process to kill");
+                return;
+            }
+            // find the children of the selected process
+            ProcessTree processTree = ProcessTree.Deserialize(ProcessTreeInterop.GetProcessTree());
+            ProcessTree selectedProcess = processTree.Find(_selected_pid);
+            if (selectedProcess == null)
+            {
+                MessageBox.Show("Failed to find the selected process");
+                return;
+            }
+            // kill the selected process
+            if (ProcessTreeInterop.KillProcessByPid((uint)_selected_pid))
+            {
+                MessageBox.Show("Process killed successfully");
+            }
+            else
+            {
+                MessageBox.Show("Failed to kill the process");
+            }
+
         }
     }
 }

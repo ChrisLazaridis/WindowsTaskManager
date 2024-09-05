@@ -13,9 +13,9 @@ use std::ffi::OsString;
 use std::os::windows::ffi::OsStringExt;
 use std::path::PathBuf;
 use winapi::um::psapi::GetProcessImageFileNameW;
-use winapi::um::processthreadsapi::OpenProcess;
+use winapi::um::processthreadsapi::{OpenProcess, TerminateProcess};
 use winapi::um::handleapi::CloseHandle;
-use winapi::um::winnt::{PROCESS_QUERY_INFORMATION, PROCESS_VM_READ};
+use winapi::um::winnt::{PROCESS_QUERY_INFORMATION, PROCESS_TERMINATE, PROCESS_VM_READ};
 
 
 mod process;
@@ -178,6 +178,18 @@ fn find_process_by_pid(pid: i32) -> Result<Process> {
 
     Ok(p)
 }
+fn kill_process(pid: u32) -> bool{
+    unsafe {
+        let handle = OpenProcess(PROCESS_TERMINATE, 0, pid);
+        if !handle.is_null() {
+            let result = TerminateProcess(handle, 0);
+            CloseHandle(handle);
+            result != 0
+        } else {
+            false
+        }
+    }
+}
 #[no_mangle]
 pub extern "C" fn get_process_info(pid: u32) -> *mut c_char {
     let mut system = System::new_all();
@@ -206,6 +218,9 @@ pub extern "C" fn get_process_info(pid: u32) -> *mut c_char {
                           .map(|path| path.display().to_string())
                           .unwrap_or_else(|| "Unknown".to_string());
     info.push_str(&format!("Executable Path: {}\n", exe_path));
+
+
+
 
     let cwd_path = process.cwd()
                           .map(|path| path.display().to_string())
@@ -244,10 +259,7 @@ pub extern "C" fn get_process_tree() -> *mut c_char {
     match get_all_processes() {
         Ok(processes) => {
             let process_tree = create_tree(processes);
-            let json_string = match serde_json::to_string(&process_tree) {
-                Ok(json) => json,
-                Err(_) => String::new(),
-            };
+            let json_string = serde_json::to_string(&process_tree).unwrap_or_else(|_| String::new());
 
             let result = CString::new(json_string).unwrap();
             result.into_raw()
@@ -259,4 +271,8 @@ pub extern "C" fn get_process_tree() -> *mut c_char {
 pub extern "C" fn free_c_string(s: *mut c_char) {
     if s.is_null() { return; }
     unsafe { let _ = CString::from_raw(s); }
+}
+#[no_mangle]
+pub extern "C" fn kill_process_by_pid(pid: u32) -> bool {
+    kill_process(pid)
 }

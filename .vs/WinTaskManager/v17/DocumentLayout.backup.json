@@ -1,21 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\",
+  "WorkspaceRootPath": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\wintaskmanager\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\wintaskmanager\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\windowstaskmanager\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\wintaskmanager\\processtreeinterop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\windowstaskmanager\\processtree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|solutionrelative:processtree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\windowstaskmanager\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\windowstaskmanager\\processtreeinterop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|solutionrelative:processtreeinterop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\wintaskmanager\\task_manager_lib\\src\\lib.rs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "AbsoluteMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|c:\\users\\claza\\source\\repos\\windowstaskmanager\\task_manager_lib\\src\\lib.rs||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{D0AE5C3E-BC77-4550-A4E3-A61F82149FA6}|WinTaskManager.csproj|solutionrelative:task_manager_lib\\src\\lib.rs||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,54 +38,70 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{d84ee353-0bef-5a41-a649-8f89aca5d84d}"
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "lib.rs",
+              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\task_manager_lib\\src\\lib.rs",
+              "RelativeDocumentMoniker": "task_manager_lib\\src\\lib.rs",
+              "ToolTip": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\task_manager_lib\\src\\lib.rs",
+              "RelativeToolTip": "task_manager_lib\\src\\lib.rs",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAAABUBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-08-26T17:28:00.85Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "lib.rs",
-              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\task_manager_lib\\src\\lib.rs",
-              "RelativeDocumentMoniker": "task_manager_lib\\src\\lib.rs",
-              "ToolTip": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\task_manager_lib\\src\\lib.rs",
-              "RelativeToolTip": "task_manager_lib\\src\\lib.rs",
-              "ViewState": "AgIAAN4AAAAAAAAAAAAIwO8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-08-26T17:28:00.85Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "ProcessTreeInterop.cs",
-              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\ProcessTreeInterop.cs",
+              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\ProcessTreeInterop.cs",
               "RelativeDocumentMoniker": "ProcessTreeInterop.cs",
-              "ToolTip": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\ProcessTreeInterop.cs",
+              "ToolTip": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\ProcessTreeInterop.cs",
               "RelativeToolTip": "ProcessTreeInterop.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACEAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAB8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-26T17:27:26.603Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-08-23T13:00:39.686Z"
+              "WhenOpened": "2024-08-26T17:27:26.603Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-09-05T19:25:17.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\claza\\source\\repos\\WinTaskManager\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAABEAAABBAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAWwF4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-23T13:00:34.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProcessTree.cs",
+              "DocumentMoniker": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\ProcessTree.cs",
+              "RelativeDocumentMoniker": "ProcessTree.cs",
+              "ToolTip": "C:\\Users\\claza\\source\\repos\\WindowsTaskManager\\ProcessTree.cs",
+              "RelativeToolTip": "ProcessTree.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAIwD4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-05T19:20:32.772Z",
               "EditorCaption": ""
             }
           ]
